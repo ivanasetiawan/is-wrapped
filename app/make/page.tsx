@@ -1645,6 +1645,30 @@ export default function MakePage() {
                           </button>
                         ))}
                       </div>
+
+                      <div className="space-y-2 pt-2">
+                        <div className="flex items-center justify-between">
+                          <label className="text-[10px] font-medium text-white/40">
+                            Opacity
+                          </label>
+                          <span className="text-[10px] font-mono text-white/60">
+                            {Math.round((selectedElement.opacity ?? 1) * 100)}%
+                          </span>
+                        </div>
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.01"
+                          value={selectedElement.opacity ?? 1}
+                          onChange={(e) =>
+                            updateElement(selectedElement.id, {
+                              opacity: parseFloat(e.target.value),
+                            })
+                          }
+                          className="w-full accent-violet-500"
+                        />
+                      </div>
                     </div>
                   )}
 
