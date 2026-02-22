@@ -168,6 +168,18 @@ const createNewSlide = (): Slide => {
   };
 };
 
+const FILTERS = [
+  { name: "None", value: "none" },
+  { name: "Cinematic", value: "contrast(1.2) saturate(0.8) brightness(1.1)" },
+  { name: "Vintage", value: "sepia(0.5) contrast(0.9) brightness(0.9)" },
+  { name: "Noir", value: "grayscale(1) contrast(1.2)" },
+  { name: "Vibrant", value: "saturate(1.8) contrast(1.1)" },
+  { name: "Dreamy", value: "brightness(1.1) blur(1px) saturate(1.2)" },
+  { name: "Cool", value: "hue-rotate(180deg) saturate(0.8)" },
+  { name: "Warm", value: "sepia(0.3) hue-rotate(-30deg) saturate(1.2)" },
+  { name: "Invert", value: "invert(1)" },
+];
+
 const ABSTRACT_SHAPES = [
   {
     name: "Circle",
@@ -970,9 +982,11 @@ export default function MakePage() {
             <ChevronLeft className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-violet-500 to-fuchsia-500" />
-            <span className="font-bold tracking-tighter">
-              WrapAgency Editor
+            <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-gray-100 to-white text-center">
+              <span className="text-xl">🧑🏻‍💻</span>
+            </div>
+            <span className="font-bold text-xl tracking-tighter">
+              iswrapped
             </span>
           </div>
         </div>
@@ -1606,6 +1620,30 @@ export default function MakePage() {
                             <option value="scaleDown">Scale Down</option>
                           </select>
                         </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {["image", "video"].includes(selectedElement.type) && (
+                    <div className="pt-4 border-t border-white/10 space-y-4">
+                      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/40">
+                        <Palette className="w-3 h-3" />
+                        Filters
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        {FILTERS.map((f) => (
+                          <button
+                            key={f.name}
+                            onClick={() =>
+                              updateElement(selectedElement.id, {
+                                filter: f.value,
+                              })
+                            }
+                            className={`px-2 py-2 rounded-lg border text-[10px] transition-all ${selectedElement.filter === f.value ? "border-violet-500 bg-violet-500/10 text-white" : "border-white/5 bg-white/5 text-white/40 hover:border-white/10"}`}
+                          >
+                            {f.name}
+                          </button>
+                        ))}
                       </div>
                     </div>
                   )}
